@@ -87,4 +87,6 @@ dependencies {
 
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
+    implementation(libs.navigation.compose)
+//    implementation(libs.navigation-compose)
 }

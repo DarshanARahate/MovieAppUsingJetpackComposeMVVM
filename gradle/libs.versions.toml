@@ -19,6 +19,7 @@ livedata_v = "1.6.7"
 coroutines_v = "1.8.0"
 hilt_compiler_v = "1.0.0"
 retrofit_v = "2.9.0"
+nav_version = "2.8.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -50,6 +51,8 @@ kotlinx-coroutines-play-services = { group = "org.jetbrains.kotlinx", name = "ko
 
 retrofit  = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit_v" }
 converter-gson  = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit_v" }
+
+navigation-compose  = { group = "androidx.navigation", name = "navigation-compose", version.ref = "nav_version" }
 
 
 [plugins]

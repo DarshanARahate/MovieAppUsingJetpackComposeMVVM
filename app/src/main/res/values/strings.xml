@@ -1,3 +1,33 @@
 <resources>
     <string name="app_name">MovieAppUsingJetpackComposeMVVM</string>
+
+    <string name="label_appearance">Appearance</string>
+    <string name="label_font_size">Font Size</string>
+    <string name="label_font_style">Font Style</string>
+    <string name="label_dark">Dark Theme</string>
+    <string name="label_light">Light Theme</string>
+
+    <string-array name="font_sizes">
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+    </string-array>
+    <string-array name="font_style">
+        <item>Regular</item>
+        <item>Italic</item>
+        <item>Bold</item>
+        <item>Bold-italic</item>
+        <item>Light</item>
+        <item>Light-italic</item>
+        <item>Thin</item>
+        <item>Thin-italic</item>
+    </string-array>
+
+
 </resources>
