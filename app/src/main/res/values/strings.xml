@@ -18,15 +18,13 @@
         <item>15</item>
         <item>16</item>
     </string-array>
+
     <string-array name="font_style">
-        <item>Regular</item>
-        <item>Italic</item>
-        <item>Bold</item>
-        <item>Bold-italic</item>
-        <item>Light</item>
-        <item>Light-italic</item>
         <item>Thin</item>
-        <item>Thin-italic</item>
+        <item>Normal</item>
+        <item>Medium</item>
+        <item>Bold</item>
+        <item>Extra Bold</item>
     </string-array>
 
 

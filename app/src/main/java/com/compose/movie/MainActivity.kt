@@ -1,5 +1,6 @@
 package com.compose.movie
 
+import SecurePreferences
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -24,16 +25,17 @@ import com.compose.movie.ui.theme.MovieAppUsingJetpackComposeMVVMTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val securePreferences = SecurePreferences(this)
         enableEdgeToEdge()
         setContent {
             MovieAppUsingJetpackComposeMVVMTheme {
-                MainView()
+                MainView(securePreferences)
             }
         }
     }
 
     @Composable
-    private fun MainView() {
+    private fun MainView(securePreferences : SecurePreferences) {
         val navController: NavHostController = rememberNavController()
         var buttonsVisible by remember { mutableStateOf(true) }
 
@@ -50,7 +52,8 @@ class MainActivity : ComponentActivity() {
             Box(
                 modifier = Modifier.padding(paddingValues)
             ) {
-                NavigationGraph(navHostController = navController) { isVisible ->
+                NavigationGraph(navHostController = navController,
+                    securePreferences = securePreferences) { isVisible ->
                     buttonsVisible = isVisible
                 }
             }

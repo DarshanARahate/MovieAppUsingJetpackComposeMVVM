@@ -1,14 +1,12 @@
 package com.compose.movie.screens
 
-import androidx.compose.foundation.background
+import SecurePreferences
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -27,7 +25,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -38,31 +35,38 @@ import com.compose.movie.R
 
 @Preview(showSystemUi = true)
 @Composable
-fun SettingsScreen() {
+fun PreviewSS() {
+//    SettingsScreen(null)
+}
 
+@Composable
+fun SettingsScreen(securePreferences: SecurePreferences?) {
     Column {
-        Appearance()
-        FontSize()
-        FontStyle()
+        Appearance(securePreferences)
+        FontSize(securePreferences)
+        FontStyle(securePreferences)
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FontSize() {
+fun FontSize(securePreferences: SecurePreferences?) {
     val fontSizes = stringArrayResource(R.array.font_sizes)
+    var fontSize by remember {
+        mutableStateOf(fontSizes[1].toInt().sp)
+    }
     var expanded by remember {
         mutableStateOf(false)
     }
     var selectedText by remember {
         mutableStateOf(fontSizes[0])
     }
-
     Column {
+
         Text(
             text = stringResource(R.string.label_font_size),
             modifier = Modifier.padding(all = 16.dp),
-            fontSize = 20.sp
+            fontSize = 16.sp
         )
         HorizontalDivider(thickness = 2.dp)
 
@@ -93,6 +97,7 @@ fun FontSize() {
                             onClick = {
                                 selectedText = item
                                 expanded = false
+                                fontSize = item.toInt().sp
                             }
                         )
                     }
@@ -104,20 +109,21 @@ fun FontSize() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FontStyle() {
-    val fontSizes = stringArrayResource(R.array.font_style)
+fun FontStyle(securePreferences: SecurePreferences?) {
+    val fontStyle = stringArrayResource(R.array.font_style)
     var expanded by remember {
         mutableStateOf(false)
     }
     var selectedText by remember {
-        mutableStateOf(fontSizes[0])
+        mutableStateOf(fontStyle[0])
     }
 
     Column {
         Text(
             text = stringResource(R.string.label_font_style),
             modifier = Modifier.padding(all = 16.dp),
-            fontSize = 20.sp
+            fontSize = 16.sp,
+            fontWeight = getFontWeight(selectedText)
         )
         HorizontalDivider(thickness = 2.dp)
 
@@ -142,7 +148,7 @@ fun FontStyle() {
                 ExposedDropdownMenu(expanded = expanded,
                     onDismissRequest = { expanded = false }) {
 
-                    fontSizes.forEach { item ->
+                    fontStyle.forEach { item ->
                         DropdownMenuItem(
                             text = { Text(text = item) },
                             onClick = {
@@ -158,21 +164,25 @@ fun FontStyle() {
 }
 
 @Composable
-private fun Appearance() {
+private fun Appearance(securePreferences: SecurePreferences?) {
     val radioOptions =
         listOf(
             stringResource(R.string.label_dark),
             stringResource(R.string.label_light)
         )
+    val keyAppearance = stringResource(R.string.label_appearance)
+    var savedAppearance =
+        securePreferences?.getData(keyAppearance) ?: radioOptions[1]
+
     val (selectedOption, onOptionSelected) = remember {
-        mutableStateOf(radioOptions[1])
+        mutableStateOf(savedAppearance)
     }
 
     Column {
         Text(
             text = stringResource(R.string.label_appearance),
             modifier = Modifier.padding(all = 16.dp),
-            fontSize = 20.sp
+            fontSize = 16.sp
         )
         HorizontalDivider(thickness = 2.dp)
         Column(
@@ -188,12 +198,19 @@ private fun Appearance() {
                     modifier = Modifier
                         .fillMaxWidth()
                         .selectable(selected = (text == selectedOption),
-                            onClick = { onOptionSelected(text) }),
+                            onClick = {
+                                securePreferences?.saveData(keyAppearance, text)
+                                onOptionSelected(text)
+                            }),
                     horizontalArrangement = Arrangement.Start,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    RadioButton(selected = (text == selectedOption),
-                        onClick = { onOptionSelected(text) },
+                    RadioButton(
+                        selected = (text == selectedOption),
+                        onClick = {
+                            securePreferences?.saveData(keyAppearance, text)
+                            onOptionSelected(text)
+                        },
                         enabled = true,
                         colors = RadioButtonDefaults.colors(
                             Color.Green,
@@ -205,10 +222,34 @@ private fun Appearance() {
                     )
                     Text(
                         text = text,
-                        fontWeight = FontWeight.Bold
+                        fontSize = 12.sp,
                     )
                 }
             }
+        }
+    }
+}
+
+private fun getFontWeight(font: String): FontWeight {
+    return when (font) {
+        "Thin" -> {
+            FontWeight.Thin
+        }
+
+        "Normal" -> {
+            FontWeight.Normal
+        }
+
+        "Medium" -> {
+            FontWeight.Medium
+        }
+
+        "Bold" -> {
+            FontWeight.Bold
+        }
+
+        else -> {
+            FontWeight.ExtraBold
         }
     }
 }

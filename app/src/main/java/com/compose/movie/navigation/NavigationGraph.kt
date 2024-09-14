@@ -1,5 +1,6 @@
 package com.compose.movie.navigation
 
+import SecurePreferences
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -7,12 +8,14 @@ import androidx.navigation.compose.composable
 import com.compose.movie.screens.AboutScreen
 import com.compose.movie.screens.MovieDetailsScreen
 import com.compose.movie.screens.MoviesScreen
+import com.compose.movie.screens.PreviewSS
 import com.compose.movie.screens.SettingsScreen
 import com.compose.movie.screens.UserProfile
 
 
 @Composable
 fun NavigationGraph(navHostController: NavHostController,
+                    securePreferences : SecurePreferences,
                     onBottomVisibilityChanged: (Boolean) -> Unit) {
     
     NavHost(navController = navHostController, startDestination = BottomNavItem.Movies.route) {
@@ -26,7 +29,8 @@ fun NavigationGraph(navHostController: NavHostController,
         }
         composable(BottomNavItem.Settings.route) {
             onBottomVisibilityChanged(true)
-            SettingsScreen()
+            PreviewSS()
+            SettingsScreen(securePreferences)
         }
 //        composable(BottomNavItem.About.route) {
 //            onBottomVisibilityChanged(true)
