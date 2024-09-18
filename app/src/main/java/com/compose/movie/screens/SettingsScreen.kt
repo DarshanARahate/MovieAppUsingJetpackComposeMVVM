@@ -51,6 +51,9 @@ fun SettingsScreen(securePreferences: SecurePreferences?) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FontSize(securePreferences: SecurePreferences?) {
+    val labelFontSize = stringResource(R.string.label_font_size)
+    var savedFontSize = securePreferences?.getDataInt(labelFontSize)
+
     val fontSizes = stringArrayResource(R.array.font_sizes)
     var fontSize by remember {
         mutableStateOf(fontSizes[1].toInt().sp)
@@ -58,8 +61,11 @@ fun FontSize(securePreferences: SecurePreferences?) {
     var expanded by remember {
         mutableStateOf(false)
     }
+    if (savedFontSize == 0) {
+        savedFontSize = fontSizes[0].toInt()
+    }
     var selectedText by remember {
-        mutableStateOf(fontSizes[0])
+        mutableStateOf(savedFontSize.toString())
     }
     Column {
 
@@ -95,6 +101,8 @@ fun FontSize(securePreferences: SecurePreferences?) {
                         DropdownMenuItem(
                             text = { Text(text = item) },
                             onClick = {
+                                securePreferences?.saveData(labelFontSize, item.toInt())
+                                println(":::  : " + securePreferences?.getDataInt(labelFontSize))
                                 selectedText = item
                                 expanded = false
                                 fontSize = item.toInt().sp
@@ -110,12 +118,14 @@ fun FontSize(securePreferences: SecurePreferences?) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FontStyle(securePreferences: SecurePreferences?) {
+    val labelFontStyle = stringResource(R.string.label_font_style)
     val fontStyle = stringArrayResource(R.array.font_style)
     var expanded by remember {
         mutableStateOf(false)
     }
+    var savedText = securePreferences?.getData(labelFontStyle) ?: fontStyle[0]
     var selectedText by remember {
-        mutableStateOf(fontStyle[0])
+        mutableStateOf(savedText)
     }
 
     Column {
@@ -152,6 +162,7 @@ fun FontStyle(securePreferences: SecurePreferences?) {
                         DropdownMenuItem(
                             text = { Text(text = item) },
                             onClick = {
+                                securePreferences?.saveData(labelFontStyle, item)
                                 selectedText = item
                                 expanded = false
                             }
