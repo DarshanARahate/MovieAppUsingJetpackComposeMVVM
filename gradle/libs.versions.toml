@@ -21,6 +21,11 @@ hilt_compiler_v = "1.0.0"
 retrofit_v = "2.9.0"
 nav_version = "2.8.0"
 security_crypto_version = "1.1.0-alpha03"
+material_icons_extended_version="1.5.4"
+coil_compose_version="2.4.0"
+room_version="2.6.0"
+logging_interceptor_version="4.11.0"
+okhttp_version="4.10.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -50,11 +55,23 @@ kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-cor
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines_v" }
 kotlinx-coroutines-play-services = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-play-services", version.ref = "coroutines_v" }
 
+#/retrofit
 retrofit  = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit_v" }
 converter-gson  = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit_v" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp_version" }
+logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "logging_interceptor_version" }
 
 navigation-compose  = { group = "androidx.navigation", name = "navigation-compose", version.ref = "nav_version" }
 security-crypto  = { group = "androidx.security", name = "security-crypto", version.ref = "security_crypto_version" }
+
+material-icons-extended  = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "material_icons_extended_version" }
+
+coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil_compose_version" }
+
+# room
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room_version" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room_version" }
+room-paging = { group = "androidx.room", name = "room-paging", version.ref = "room_version" }
 
 
 

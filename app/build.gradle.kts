@@ -70,7 +70,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-
     implementation(libs.lifecycle.viewmodel.compose)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
@@ -89,4 +88,13 @@ dependencies {
     implementation(libs.converter.gson)
     implementation(libs.navigation.compose)
     implementation(libs.security.crypto)
+    implementation(libs.material.icons.extended)
+
+    implementation(libs.coil.compose)
+    implementation(libs.room.ktx)
+    implementation(libs.room.compiler)
+    implementation(libs.room.paging)
+
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
 }
