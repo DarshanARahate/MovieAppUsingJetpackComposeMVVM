@@ -24,7 +24,7 @@ class MovieListRepositoryImpl @Inject constructor(
         page: Int
     ): Flow<Resource<List<Movie>>> {
         return flow {
-            emit(Resource.Loding(true))
+            emit(Resource.Loading(true))
 
             val localMovieList = movieDatabase.movieDao.getMovieListByCategory(category)
             val shouldLoadLocalMovie = localMovieList.isNotEmpty() && !forceFetchFromRemote
@@ -35,7 +35,7 @@ class MovieListRepositoryImpl @Inject constructor(
                         movieEntity.toMovie(category)
                     }
                 ))
-                emit(Resource.Loding(false))
+                emit(Resource.Loading(false))
 
                 return@flow
             }
@@ -67,26 +67,26 @@ class MovieListRepositoryImpl @Inject constructor(
             emit(Resource.Success(
                 movieEntities.map { it.toMovie(category) }
             ))
-            emit(Resource.Loding(false))
+            emit(Resource.Loading(false))
         }
     }
 
     override suspend fun getMovie(id: Int): Flow<Resource<Movie>> {
        return flow {
-           emit(Resource.Loding(true))
+           emit(Resource.Loading(true))
 
            val movieEntity = movieDatabase.movieDao.getMovieById(id)
 
            if (movieEntity != null) {
                emit(Resource.Success(movieEntity.toMovie(movieEntity.category)))
 
-               emit(Resource.Loding(false))
+               emit(Resource.Loading(false))
                return@flow
            }
 
            emit(Resource.Error("Error No Such Movie"))
 
-           emit(Resource.Loding(false))
+           emit(Resource.Loading(false))
        }
     }
 }

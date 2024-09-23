@@ -6,6 +6,10 @@
     <string name="label_font_style">Font Style</string>
     <string name="label_dark">Dark Theme</string>
     <string name="label_light">Light Theme</string>
+    <string name="label_popular">Popular</string>
+    <string name="label_upcoming">Upcoming</string>
+    <string name="label_popular_movies">Popular Movies</string>
+    <string name="label_upcoming_movies">Upcoming Movies</string>
 
     <string-array name="font_sizes">
         <item>8</item>

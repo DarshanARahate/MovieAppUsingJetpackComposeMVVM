@@ -71,7 +71,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     implementation(libs.lifecycle.viewmodel.compose)
-    implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.runtime.livedata)
 
@@ -92,9 +91,10 @@ dependencies {
 
     implementation(libs.coil.compose)
     implementation(libs.room.ktx)
-    implementation(libs.room.compiler)
+    ksp(libs.room.compiler)
     implementation(libs.room.paging)
 
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
+    implementation(libs.accompanist.systemuicontroller)
 }
