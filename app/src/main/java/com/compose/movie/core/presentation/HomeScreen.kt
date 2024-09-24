@@ -37,6 +37,8 @@ import androidx.navigation.compose.rememberNavController
 import com.compose.movie.R
 import com.compose.movie.presentation.MovieListUiEvent
 import com.compose.movie.presentation.MovieListViewModel
+import com.compose.movie.presentation.PopularMoviesScreen
+import com.compose.movie.presentation.UpcomingMoviesScreen
 import com.compose.movie.util.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -82,10 +84,19 @@ fun HomeScreen(navController: NavHostController) {
                 startDestination = Screen.PopularMovieList.rout
             ) {
                 composable(Screen.PopularMovieList.rout) {
-//                    PopularMoviesScreen()
+                    PopularMoviesScreen(
+                        navController = navController,
+                        movieListState = movieListState,
+                        onEvent = movieListViewModel::onEvent
+                    )
+
                 }
                 composable(Screen.UpcomingMovieList.rout) {
-//                    UpcomingMoviesScreen()
+                    UpcomingMoviesScreen(
+                        navController = navController,
+                        movieListState = movieListState,
+                        onEvent = movieListViewModel::onEvent
+                    )
                 }
             }
         }
