@@ -5,7 +5,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface MovieApi {
-    @GET
+    @GET("movie/{category}")
     suspend fun getMoviesList(
         @Path("category") category: String,
         @Query("page") page: Int,
